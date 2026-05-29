@@ -1,0 +1,11 @@
+Agent Type	:	Cypher Template
+Name		:	Suppliers in City
+Description	:	Finds all suppliers explicitly located in a specified city.
+Parameters	:	cityName
+Cypher Query:
+MATCH (s:Supplier)-[:LOCATED_IN]->(c:City {name: $cityName}) 
+RETURN s.name as SupplierName, 
+       s.supplierId as SupplierId, 
+       c.name as City, 
+       c.location as Location 
+ORDER BY s.name

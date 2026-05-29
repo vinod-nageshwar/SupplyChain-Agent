@@ -1,0 +1,7 @@
+Agent Type	:	Cypher Template
+Name		:	Suppliers of Product
+Description	:	Finds all suppliers that supply a specified product.
+Parameters	:	productName
+Cypher Query:
+MATCH (c:City)<-[:LOCATED_IN]-(s:Supplier)-[:SUPPLIES]->(p:Product {name: $productName}) 
+RETURN s.name AS supplierName, s.supplierId AS supplierId, c.name as City

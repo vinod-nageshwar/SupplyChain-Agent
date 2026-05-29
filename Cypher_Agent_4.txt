@@ -1,0 +1,10 @@
+Agent Type	:	Cypher Template
+Name		:	Suppliers Nearest to City
+Description	:	Finds suppliers located in cities geographically closest to a specified reference city. Returns the supplier name, the city they are located in, and the distance in kilometers.
+Parameters	:	referenceCityName
+Cypher Query:
+MATCH (targetCity:City {name: $referenceCityName}) 
+WITH targetCity MATCH (s:Supplier)-[:LOCATED_IN]->(c:City) 
+WHERE c <> targetCity 
+RETURN s.name AS supplierName, c.name AS cityLocatedIn, round(point.distance(c.location, targetCity.location)/1000) AS distanceKm 
+ORDER BY distanceKm

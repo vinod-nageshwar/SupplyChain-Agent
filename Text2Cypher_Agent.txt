@@ -1,0 +1,5 @@
+Agent Type	:	Text2Cypher
+Name		:	Natural Language to Cypher Tool
+Description	:	
+A general-purpose, free-form Text-to-Cypher tool that converts natural language questions into Cypher queries, executes them, and returns the results. 
+Use this option when no specialized tool (e.g. for aggregation or domain-specific logic) is more appropriate.

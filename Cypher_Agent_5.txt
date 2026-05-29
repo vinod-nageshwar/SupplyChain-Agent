@@ -1,0 +1,14 @@
+Agent Type	:	Cypher Template
+Name		:	Alternate Suppliers for Similar Product
+Description	:	Finds the alternate suppliers for the similar products supplied them
+Parameters	:	supplierName
+Cypher Query:
+MATCH (zenith:Supplier {name: $supplierName})-[:SUPPLIES]->(product:Product)
+WITH COLLECT(product.name) as products, COUNT(*) as productCount
+MATCH (altSupplier:Supplier)-[:SUPPLIES]->(product:Product)
+WHERE product.name IN products AND altSupplier.name <> $supplierName
+WITH DISTINCT altSupplier, COUNT(*) as commonProducts
+RETURN altSupplier.name as AlternateSupplierName,
+       altSupplier.supplierId as AlternateSupplierID,
+       commonProducts as NumberOfCommonProducts
+ORDER BY commonProducts DESC, altSupplier.name

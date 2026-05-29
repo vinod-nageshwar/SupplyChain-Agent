@@ -1,0 +1,10 @@
+Agent Type	:	Cypher Template
+Name		:	Alternate Suppliers for Product
+Description	:	Finds suppliers for a specific product, optionally excluding a known supplier by name to find alternative options.
+Parameters	:	productName,excludeSupplierName
+Cypher Query:
+MATCH (s:Supplier)-[:SUPPLIES]->(p:Product {name: $productName}) 
+WHERE NOT ($excludeSupplierName IS NOT NULL AND s.name = $excludeSupplierName) 
+RETURN s.name as AlternateSupplierName,
+       s.supplierId as AlternateSupplierID
+ORDER BY s.name
